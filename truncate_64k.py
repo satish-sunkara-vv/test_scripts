@@ -1,38 +1,6 @@
 # import os
 # import time
 #
-# def complete_read_with_dd(start=1, end=3001, sleep_interval=1):
-#     for a in range(start, end):
-#         file_command = (
-#             "sudo dd if=/dev/null of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt bs=64K count=8 conv=notrunc".format(a)
-#         )
-#         os.system(file_command)
-#         time.sleep(sleep_interval)
-# bs=[1,33,67,78,99]
-# for x in range(1,3001):
-#     file1="sudo truncate -s -64K  /mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(x)
-#     os.system(file1)
-#     time.sleep(1)
-# complete_read_with_dd()
-# for y in range(1,3001):
-#     file3="sudo dd if=/dev/urandom of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt bs=64K count=1 oflag=append conv=notrunc".format(y)
-#     os.system(file3)
-#     time.sleep(1)
-# complete_read_with_dd()
-# for i in range(len(bs)):
-#     for j in range(1,3001):
-#         if i<len(bs):
-#             file5="sudo dd if=/dev/urandom of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt bs={}K count=1 conv=notrunc".format(j,bs[i])
-#             os.system(file5)
-#             time.sleep(1)
-#     complete_read_with_dd()
-#
-#
-#
-#
-# import os
-# import time
-#
 # for b in range(101)
 #     def complete_read_with_dd(start=3000, end=6001, sleep_interval=1):
 #         for a in range(start, end):

@@ -23,7 +23,7 @@
 #             os.system(file2)
 #             time.sleep(1)
 
-
+################
 
 
 # import os
@@ -244,7 +244,7 @@ for x in range(9):
             else:
                 print("The files: {} and {} , md5sum {}:{}check is not matching".format(aos_hole_file,aos_read_hole_file,aos_hole_file_md5,aos_read_hole_file_md5))
                 sys.exit()
-        print("-----------------------------------------------------------------------------------Over write on punched hole at block Size:{}KB------------------------------------".format(bs[i]))
+        print("---------------------------------------------------------------------------------------Over write on punched hole at block Size:{}KB------------------------------------".format(bs[i]))
 
 
 

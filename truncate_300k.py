@@ -3,7 +3,9 @@ import subprocess
 import time
 import sys
 
-bs=[100,175,219,260,320]
+#bs=[100,175,219,260,320]
+trunc_size=int(input("Please Enter the Truncated size: "))
+bs=[1,int(trunc_size-(trunc_size/2)),trunc_size-3,int(trunc_size-(trunc_size/2))]
 
 def get_md5sum(file_path):
 
@@ -21,10 +23,10 @@ def get_md5sum(file_path):
         return None, None, stderr.decode('utf-8').strip()
 
 for x in range(3001,6001):
-    file1="sudo truncate -s -300K  /mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(x)
+    file1="sudo truncate -s -{}K  /mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(trunc_size,x)
     os.system(file1)
     time.sleep(2)
-    trunc_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(x)
+    trunc_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_{}-512k-64bs.txt".format(x)
     file_path = trunc_file
     output, split_output, error = get_md5sum(file_path)
     trunc_file_md5 = str(split_output[0])
@@ -32,7 +34,7 @@ for x in range(3001,6001):
     file2="sudo dd if=/dev/null of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt conv=notrunc".format(x)
     os.system(file2)
     time.sleep(1)
-    read_trunc_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(x)
+    read_trunc_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_{}-512k-64bs.txt".format(x)
     file_path = read_trunc_file
     read_output, split_output, read_error = get_md5sum(file_path)
     read_trunc_file_md5 = str(split_output[0])
@@ -44,10 +46,10 @@ for x in range(3001,6001):
         sys.exit()
 
 for y in range(3001,6001):
-    file3 = "sudo dd if=/dev/urandom of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt bs=300K count=1 oflag=append conv=notrunc".format(y)
+    file3 = "sudo dd if=/dev/urandom of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt bs={}K count=1 oflag=append conv=notrunc".format(y,trunc_size)
     os.system(file3)
     time.sleep(1)
-    append_trunc_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(y)
+    append_trunc_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_{}-512k-64bs.txt".format(y)
     file_path = append_trunc_file
     output, split_output, error = get_md5sum(file_path)
     trunc_append_file_md5 = str(split_output[0])
@@ -55,7 +57,7 @@ for y in range(3001,6001):
     file4 = "sudo dd if=/dev/null of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt conv=notrunc".format(y)
     os.system(file4)
     time.sleep(1)
-    read_append_trunc_file = "/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(y)
+    read_append_trunc_file = "/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_{}-512k-64bs.txt".format(y)
     file_path = read_append_trunc_file
     read_output, split_output, read_error = get_md5sum(file_path)
     read_trunc_append_file_md5 = str(split_output[0])
@@ -71,7 +73,7 @@ for i in range(len(bs)):
         file5="sudo dd if=/dev/urandom of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt bs={}K count=1 conv=notrunc".format(j,bs[i])
         os.system(file5)
         time.sleep(1)
-        overwrite_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(j)
+        overwrite_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_{}-512k-64bs.txt".format(j)
         file_path = overwrite_file
         output, split_output, error = get_md5sum(file_path)
         Overwrite_trunc_file_md5 = str(split_output[0])
@@ -79,7 +81,7 @@ for i in range(len(bs)):
         file6 = "sudo dd if=/dev/null of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt conv=notrunc".format(j)
         os.system(file6)
         time.sleep(1)
-        read_overwrite_file = "/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(j)
+        read_overwrite_file = "/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_{}-512k-64bs.txt".format(j)
         file_path = read_overwrite_file
         read_output, split_output, read_error = get_md5sum(file_path)
         read_overwrite_trunc_file_md5 = str(split_output[0])

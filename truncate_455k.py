@@ -3,7 +3,10 @@ import subprocess
 import time
 import sys
 
-bs=[100,219,350,410,470]
+#bs=[100,219,350,410,470]
+
+trunc_size=int(input("Please Enter the Truncated size"))
+bs=[1,int(trunc_size-(trunc_size/2)),trunc_size-3,int(trunc_size+(trunc_size/2))]
 
 def get_md5sum(file_path):
 
@@ -21,7 +24,7 @@ def get_md5sum(file_path):
         return None, None, stderr.decode('utf-8').strip()
 
 for x in range(6001,9001):
-    file1="sudo truncate -s -455K  /mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(x)
+    file1="sudo truncate -s -{}K  /mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt".format(trunc_size,x)
     os.system(file1)
     time.sleep(2)
     trunc_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_{}-512k-64bs.txt".format(x)
@@ -44,7 +47,7 @@ for x in range(6001,9001):
         sys.exit()
 
 for y in range(6001,9001):
-    file3 = "sudo dd if=/dev/urandom of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt bs=455K count=1 oflag=append conv=notrunc".format(y)
+    file3 = "sudo dd if=/dev/urandom of=/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_${}-512k-64bs.txt bs={}K count=1 oflag=append conv=notrunc".format(y,trunc_size)
     os.system(file3)
     time.sleep(1)
     append_trunc_file="/mnt/addr_node1_gps1/truncdir_n1s1_64k/truncdir_n1s1_64k_{}-512k-64bs.txt".format(y)

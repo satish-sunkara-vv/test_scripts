@@ -23,7 +23,7 @@ def get_md5sum(file_path):
 seek=0
 bs=[1,33,67,78,99]
 for x in range(9):
-    for y in range(1,9001):
+    for y in range(1001,9001):
         file1="sudo dd if=/dev/zero of=/mnt/addr_node1_gps1/holedir_n1s1_64k/holedir_n1s1_64k_${}-512k-64bs.txt bs=64K seek={} count=1 conv=notrunc".format(y,x+1)
         os.system(file1)
         time.sleep(1)
@@ -48,7 +48,7 @@ for x in range(9):
     print("----------------------------------------------------punched hole at :{} block--------------------------------------------".format(x))
 
     for i in range(len(bs)):
-        for j in range(1,9001):
+        for j in range(1001,9001):
             file3="sudo dd if=/dev/urandom of=/mnt/addr_node1_gps1/holedir_n1s1_64k/holedir_n1s1_64k_${}-512k-64bs.txt seek={} bs={}K count=1 conv=notrunc".format(j,x+1,bs[i])
             os.system(file3)
             time.sleep(1)
